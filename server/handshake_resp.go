@@ -9,7 +9,7 @@ import (
 	"github.com/pingcap/errors"
 )
 
-func (c *Conn) readHandshakeResponse() error {
+func (c *Conn) ReadHandshakeResponse() error {
 	data, pos, err := c.readFirstPart()
 	if err != nil {
 		return err

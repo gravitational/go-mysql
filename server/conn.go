@@ -28,6 +28,7 @@ type Conn struct {
 	credentialProvider  CredentialProvider
 	user                string
 	password            string
+	db                  string
 	cachingSha2FullAuth bool
 
 	h Handler

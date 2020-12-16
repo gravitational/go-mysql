@@ -24,6 +24,10 @@ func (c *Conn) WriteError(e error) error {
 	return c.writeError(e)
 }
 
+func (c *Conn) GetDatabase() string {
+	return c.db
+}
+
 // MakeConn creates a new server side connection without performing the handshake.
 func MakeConn(conn net.Conn, serverConf *Server, p CredentialProvider, h Handler) *Conn {
 	var packetConn *packet.Conn

@@ -41,12 +41,18 @@ func (c *Conn) readInitialHandshake() error {
 		return errors.Errorf("invalid protocol version %d, must >= 10", data[0])
 	}
 
-	// skip mysql version
+	// set the current position
+	pos := 1
+
 	// mysql version end with 0x00
-	pos := 1 + bytes.IndexByte(data[1:], 0x00) + 1
+	versionLength := bytes.IndexByte(data[1:], 0x00)
+
+	c.serverVersion = string(data[pos : pos+versionLength])
+
+	pos += versionLength + 1
 
 	// connection id length is 4
-	c.connectionID = uint32(binary.LittleEndian.Uint32(data[pos : pos+4]))
+	c.connectionID = binary.LittleEndian.Uint32(data[pos : pos+4])
 	pos += 4
 
 	c.salt = []byte{}

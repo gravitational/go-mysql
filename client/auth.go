@@ -45,7 +45,10 @@ func (c *Conn) readInitialHandshake() error {
 	pos := 1
 
 	// mysql version end with 0x00
-	versionLength := bytes.IndexByte(data[1:], 0x00)
+	versionLength := bytes.IndexByte(data[pos:], 0x00)
+	if versionLength == -1 {
+		return errors.New("failed to read the MySQL server version")
+	}
 
 	c.serverVersion = string(data[pos : pos+versionLength])
 

@@ -3,10 +3,10 @@ name: "CodeQL"
 on:
   push:
     branches:
-      - master
+      - teleport
   pull_request:
     branches:
-      - master
+      - teleport
 
 jobs:
   analyze:

@@ -8,7 +8,7 @@ import (
 	. "github.com/go-mysql-org/go-mysql/mysql"
 )
 
-var defaultServer = NewDefaultServer()
+var defaultServer = sync.OnceValue(NewDefaultServer)
 
 // Defines a basic MySQL server with configs.
 //

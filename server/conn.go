@@ -47,7 +47,7 @@ func NewConn(conn net.Conn, user string, password string, h Handler) (*Conn, err
 	p.AddUser(user, password)
 
 	var packetConn *packet.Conn
-	if defaultServer.tlsConfig != nil {
+	if defaultServer().tlsConfig != nil {
 		packetConn = packet.NewTLSConn(conn)
 	} else {
 		packetConn = packet.NewConn(conn)
@@ -55,7 +55,7 @@ func NewConn(conn net.Conn, user string, password string, h Handler) (*Conn, err
 
 	c := &Conn{
 		Conn:               packetConn,
-		serverConf:         defaultServer,
+		serverConf:         defaultServer(),
 		credentialProvider: p,
 		h:                  h,
 		connectionID:       atomic.AddUint32(&baseConnID, 1),
